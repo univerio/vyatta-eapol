@@ -1,0 +1,6 @@
+multi:
+type: txt
+help: Accepted EAP methods
+syntax:expression: $VAR(@) in "tls";
+                   "Must be \"tls\""
+val_help: tls; Accept EAP-TLS

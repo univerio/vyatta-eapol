@@ -1,0 +1,2 @@
+vyatta-eapol: file-in-unusual-dir
+vyatta-eapol: dir-or-file-in-opt

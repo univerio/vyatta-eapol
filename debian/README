@@ -1,0 +1,6 @@
+The Debian Package vyatta-eapol
+----------------------------
+
+This package has EAPoL/802.1x configuration templates and scripts.
+
+ -- John Doe <example@example.com>  Sat, 19 May 2023 21:41:45 -0700

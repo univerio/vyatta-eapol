@@ -1,0 +1,10 @@
+type: txt
+help: Allow EAP-Success/EAP-Failure without going through an
+                authentication step. Some switches use such a sequence when
+                forcing the port to be authorized/unauthorized or as a fallback
+                option if the authentication server is unreachable. This is
+                disabled by default to protect against potential attacks by
+                rogue devices.
+syntax:expression: $VAR(@) == "true";
+                   "Must be \"true\""
+val_help: true; Enable allow-canned-success
