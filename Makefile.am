@@ -13,8 +13,8 @@ bin_sudo_users_SCRIPTS =
 
 curver_DATA = 
 
-cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
-  cpio -0pd
+cpiop = find -L . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
+  cpio -0pdL
 
 install-exec-hook:
 	mkdir -p $(DESTDIR)$(cfgdir)

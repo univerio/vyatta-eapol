@@ -3,6 +3,11 @@
 
 action="$1"
 if="$2"
+config_key=(interfaces ethernet "$if")
+if [[ -n $3 ]]; then
+    if="$if.$3"
+    config_key+=(vif "$3")
+fi
 unit=wpa_supplicant-wired@"$if".service
 config_path=/etc/wpa_supplicant/wpa_supplicant-wired-"$if".conf
 
@@ -18,16 +23,16 @@ else
     {
         echo 'network={'
         eap=()
-        eval "eap=($(cli-shell-api returnValues interfaces ethernet "$if" eapol eap | tr a-z A-Z))"
+        eval "eap=($(cli-shell-api returnValues "${config_key[@]}" eapol eap | tr a-z A-Z))"
         if (( ${#eap[@]} )); then
             echo '    eap='"${eap[*]}"
         fi
         echo '    key_mgmt=IEEE8021X'
         echo '    eapol_flags=0'
-        echo '    identity="'"$(cli-shell-api returnValue interfaces ethernet "$if" eapol identity)"'"'
-        echo '    ca_cert="'"$(cli-shell-api returnValue interfaces ethernet "$if" eapol ca-cert-file)"'"'
-        echo '    client_cert="'"$(cli-shell-api returnValue interfaces ethernet "$if" eapol cert-file)"'"'
-        echo '    private_key="'"$(cli-shell-api returnValue interfaces ethernet "$if" eapol key-file)"'"'
+        echo '    identity="'"$(cli-shell-api returnValue "${config_key[@]}" eapol identity)"'"'
+        echo '    ca_cert="'"$(cli-shell-api returnValue "${config_key[@]}" eapol ca-cert-file)"'"'
+        echo '    client_cert="'"$(cli-shell-api returnValue "${config_key[@]}" eapol cert-file)"'"'
+        echo '    private_key="'"$(cli-shell-api returnValue "${config_key[@]}" eapol key-file)"'"'
         phase1=()
         if [[ "$(cli-shell-api returnValue interfaces ethernet "$if" eapol allow-canned-success)" = true ]]; then
             phase1+=("allow_canned_success=1")

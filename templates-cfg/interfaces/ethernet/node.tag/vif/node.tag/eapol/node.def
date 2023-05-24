@@ -1,0 +1,4 @@
+priority: 320 # Run after interface has been configured
+help: EAPoL/802.1x
+
+end: sudo /opt/vyatta/sbin/vyatta-update-wpa-supplicant.sh "$COMMIT_ACTION" "$VAR(../../@)" "$VAR(../@)"
